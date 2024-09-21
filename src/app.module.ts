@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MetadataModule } from './metadata/metadata.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserdataModule } from './userdata/userdata.module';
 
 @Module({
   imports: [
     MetadataModule,
+    UserdataModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -18,7 +18,5 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       ssl: false,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

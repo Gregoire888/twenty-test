@@ -38,3 +38,11 @@ We will use PostgresSQL as it is the default Open Source SQL DB and happens to b
 ### ORM
 
 To easily communicate w/ the DB, we will use an ORM. The default ORM used with NestJS is TypeORM which offers a lot of flexibility.
+
+### Left To Do
+
+- Complete Metadata module queries to "run migrations"
+- test repositories w/ mocks
+- test services w/ mocks
+- test controllers w/ mocks
+- add integration tests w/ in memory DB 
