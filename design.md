@@ -6,13 +6,15 @@ In order to store metadata and users' data, we will need the following tables/co
 
 ### Metadata
 
-TableMetadata
+#### TableMetadata
 
 - id
 - name
 - userId
 
-ColumnMetadata
+=> Indexes to create for queries : 'name', 'userId'
+
+#### ColumnMetadata
 
 - id
 - name
