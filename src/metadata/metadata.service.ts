@@ -1,5 +1,6 @@
 import { ColumnMetadataRepository } from './repositories/column-metadata.repository';
 import { TableMetadataRepository } from './repositories/table-metadata.repository';
+import { UserDataRepository } from './repositories/userdata.repository';
 
 export enum MetadataServiceError {
   TABLE_NOT_FOUND = 'TABLE_NOT_FOUND',
@@ -9,9 +10,14 @@ export class MetadataService {
   constructor(
     private readonly tableRepository: TableMetadataRepository,
     private readonly columnRepository: ColumnMetadataRepository,
+    private readonly userdataRepository: UserDataRepository,
   ) {}
 
-  createTable({ name, userId }: { name: string; userId: string }) {
+  async createTable({ name, userId }: { name: string; userId: string }) {
+    await this.userdataRepository.createTable({
+      tableName: name,
+      userId,
+    });
     return this.tableRepository.create(name, userId);
   }
 
@@ -24,6 +30,10 @@ export class MetadataService {
       };
     }
     await this.columnRepository.deleteAllForTable(table.id);
+    await this.userdataRepository.dropTable({
+      tableName: name,
+      userId,
+    });
     return this.tableRepository.delete(name, userId);
   }
 
@@ -46,6 +56,13 @@ export class MetadataService {
         reason: MetadataServiceError.TABLE_NOT_FOUND,
       };
     }
+
+    await this.userdataRepository.createColumn({
+      tableName,
+      columnName: name,
+      userId,
+    });
+
     return this.columnRepository.create(name, table.id);
   }
 
@@ -68,6 +85,11 @@ export class MetadataService {
         reason: MetadataServiceError.TABLE_NOT_FOUND,
       };
     }
+    await this.userdataRepository.dropColumn({
+      tableName,
+      columnName: name,
+      userId,
+    });
     return this.columnRepository.delete(name, userId);
   }
 }
