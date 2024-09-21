@@ -12,6 +12,7 @@ In order to store metadata and users' data, we will need the following tables/co
 - name
 - userId
 
+=> Unicity on (userId, name)
 => Indexes to create for queries : 'name', 'userId'
 
 #### ColumnMetadata
@@ -19,6 +20,8 @@ In order to store metadata and users' data, we will need the following tables/co
 - id
 - name
 - tableId
+
+=> Unicity on (tableId, name)
 
 ## APIs
 
